@@ -4,12 +4,18 @@ import Numbers from './Numbers'
 const Input = styled.input`
   padding: 0.5em;
   margin: 0.5em;
-  color: palevioletred;
-  background: papayawhip;
-  border: none;
-  border-radius: 3px;
+  color: black;
+  font-size: 40px;
+  font-weight: 600;
+  background: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
 `
-const Label = styled.label``
+const Label = styled.label`
+  font-size: 40px;
+  font-weight: 600;
+`
 
 const InputForm = () => {
   const [principle, setPrinciple] = useState(0)
@@ -24,7 +30,7 @@ const InputForm = () => {
     <>
       <form onSubmit={submitHandler}>
         <div className="form-group">
-          <label>Principle Value</label>
+          <Label>Principle Value:</Label>
           <Input
             type="number"
             onChange={(e) => setPrinciple(e.target.value)}
@@ -32,7 +38,7 @@ const InputForm = () => {
           />
         </div>
         <div className="form-group">
-          <label>Interest Rate</label>
+          <Label>Interest Rate:</Label>
           <Input
             type="number"
             onChange={(e) => setInterestRate(e.target.value)}
@@ -40,7 +46,7 @@ const InputForm = () => {
           />
         </div>
         <div className="form-group">
-          <label>Compound Rate</label>
+          <Label>Compound Rate:</Label>
           <Input
             type="number"
             onChange={(e) => setCompoundRate(e.target.value)}
@@ -48,7 +54,7 @@ const InputForm = () => {
           />
         </div>
         <div className="form-group">
-          <label>Time</label>
+          <Label>Time:</Label>
           <Input
             type="number"
             onChange={(e) => setTime(e.target.value)}
