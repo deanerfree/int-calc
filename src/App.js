@@ -1,6 +1,6 @@
 import './App.css'
 import styled from 'styled-components'
-import Calculator from './components/Form'
+import Form from './components/Form'
 
 function App() {
   return (

@@ -1,15 +1,21 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
-const Calculator = () => {
-  const [interest, setInterest] = useState(0)
-  
+const Numbers = (props) => {
+  const [amount, setAmount] = useState(0)
 
-  const calculateInterest = () => {
-    let principle = 1
-    let interestRate = 3
-    let compoundRate = 2
-    let time = 1
-    const amount =
-      principle * (1 + interestRate / compoundRate) ** (compoundRate * time)
-    return amount
+  const calcCompoundInterest = () => {
+    const calcAmount =
+      props.principle *
+      (1 + props.interestRate / props.compoundRate) **
+        (props.compoundRate * props.time)
+    setAmount(calcAmount)
   }
+
+  return (
+    <div className="wrapper">
+      <button onClick={() => calcCompoundInterest()}>Calculate</button>
+      <div>{amount}</div>
+    </div>
+  )
+}
+export default Numbers
