@@ -1,6 +1,7 @@
-import React, { useState, useRef } from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import Numbers from './Numbers'
+
 const Input = styled.input`
   padding: 0.5em;
   margin: 0.5em;
@@ -18,10 +19,10 @@ const Label = styled.label`
 `
 
 const InputForm = () => {
-  const [principle, setPrinciple] = useState(0)
-  const [interestRate, setInterestRate] = useState(0)
-  const [compoundRate, setCompoundRate] = useState(0)
-  const [time, setTime] = useState(0)
+  const [principle, setPrinciple] = useState('')
+  const [interestRate, setInterestRate] = useState('')
+  const [compoundRate, setCompoundRate] = useState('')
+  const [time, setTime] = useState('')
 
   const submitHandler = (e) => {
     e.preventDefault()
@@ -32,7 +33,8 @@ const InputForm = () => {
         <div className="form-group">
           <Label>Principle Value:</Label>
           <Input
-            type="number"
+            pattern="^-?[0-9]\d*\.?\d*$"
+            placeholder="0"
             onChange={(e) => setPrinciple(e.target.value)}
             value={principle}
           />
@@ -40,7 +42,8 @@ const InputForm = () => {
         <div className="form-group">
           <Label>Interest Rate:</Label>
           <Input
-            type="number"
+            pattern="^-?[0-9]\d*\.?\d*$"
+            placeholder="0"
             onChange={(e) => setInterestRate(e.target.value)}
             value={interestRate}
           />
@@ -48,7 +51,8 @@ const InputForm = () => {
         <div className="form-group">
           <Label>Compound Rate:</Label>
           <Input
-            type="number"
+            pattern="^-?[0-9]\d*\.?\d*$"
+            placeholder="0"
             onChange={(e) => setCompoundRate(e.target.value)}
             value={compoundRate}
           />
@@ -56,7 +60,8 @@ const InputForm = () => {
         <div className="form-group">
           <Label>Time:</Label>
           <Input
-            type="number"
+            pattern="^-?[0-9]\d*\.?\d*$"
+            placeholder="0"
             onChange={(e) => setTime(e.target.value)}
             value={time}
           />

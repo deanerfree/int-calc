@@ -17,14 +17,12 @@ const Answer = styled.div`
   font-size: 80px;
   font-weight: 600;
 `
-const Numbers = (props) => {
+const Numbers = ({ principle, interestRate, compoundRate, time }) => {
   const [amount, setAmount] = useState(0)
 
   const calcCompoundInterest = () => {
     const calcAmount =
-      props.principle *
-      (1 + props.interestRate / props.compoundRate) **
-        (props.compoundRate * props.time)
+      principle * (1 + interestRate / compoundRate) ** (compoundRate * time)
     setAmount(calcAmount.toFixed(2))
   }
 
