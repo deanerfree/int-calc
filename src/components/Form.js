@@ -2,6 +2,16 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import Numbers from './Numbers'
 
+const Form = styled.form`
+  margin: 30px;
+  padding-left: 50px;
+`
+const Wrapper = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+`
+
 const Input = styled.input`
   padding: 0.5em;
   margin: 0.5em;
@@ -12,9 +22,15 @@ const Input = styled.input`
   border-top: none;
   border-left: none;
   border-right: none;
+  max-width: 200px;
 `
 const Label = styled.label`
   font-size: 40px;
+  font-weight: 600;
+`
+const LabelRad = styled.label`
+  flex-direction: row;
+  font-size: 20px;
   font-weight: 600;
 `
 
@@ -29,8 +45,8 @@ const InputForm = () => {
   }
   return (
     <>
-      <form onSubmit={submitHandler}>
-        <div className="form-group">
+      <Form onSubmit={submitHandler}>
+        <Wrapper>
           <Label>Principle Value:</Label>
           <Input
             pattern="^-?[0-9]\d*\.?\d*$"
@@ -38,8 +54,8 @@ const InputForm = () => {
             onChange={(e) => setPrinciple(e.target.value)}
             value={principle}
           />
-        </div>
-        <div className="form-group">
+        </Wrapper>
+        <Wrapper>
           <Label>Interest Rate:</Label>
           <Input
             pattern="^-?[0-9]\d*\.?\d*$"
@@ -47,17 +63,43 @@ const InputForm = () => {
             onChange={(e) => setInterestRate(e.target.value)}
             value={interestRate}
           />
-        </div>
-        <div className="form-group">
+        </Wrapper>
+        <Wrapper>
           <Label>Compound Rate:</Label>
           <Input
-            pattern="^-?[0-9]\d*\.?\d*$"
-            placeholder="0"
+            type="Radio"
+            id="compoundRate1"
+            name="compoundRate"
             onChange={(e) => setCompoundRate(e.target.value)}
-            value={compoundRate}
+            value={1}
           />
-        </div>
-        <div className="form-group">
+          <LabelRad htmlFor="compound1">Annualy</LabelRad>
+          <Input
+            type="Radio"
+            id="compoundRate2"
+            name="compoundRate"
+            onChange={(e) => setCompoundRate(e.target.value)}
+            value={2}
+          />
+          <LabelRad htmlFor="compound2">Semi-Annual</LabelRad>
+          <Input
+            type="Radio"
+            id="compoundRate3"
+            name="compoundRate"
+            onChange={(e) => setCompoundRate(e.target.value)}
+            value={4}
+          />
+          <LabelRad htmlFor="compound3">Quarterly</LabelRad>
+          <Input
+            type="Radio"
+            id="compoundRate4"
+            name="compoundRate"
+            onChange={(e) => setCompoundRate(e.target.value)}
+            value={12}
+          />
+          <LabelRad htmlFor="compound4">Monthly</LabelRad>
+        </Wrapper>
+        <Wrapper>
           <Label>Time:</Label>
           <Input
             pattern="^-?[0-9]\d*\.?\d*$"
@@ -65,14 +107,14 @@ const InputForm = () => {
             onChange={(e) => setTime(e.target.value)}
             value={time}
           />
-        </div>
+        </Wrapper>
         <Numbers
           principle={principle}
           interestRate={interestRate}
           compoundRate={compoundRate}
           time={time}
         />
-      </form>
+      </Form>
     </>
   )
 }

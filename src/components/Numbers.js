@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 
 const Button = styled.button`
+  justify-content: center;
   padding: 30px;
   margin: 5px;
   font-size: 40px;
