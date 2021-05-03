@@ -6,3 +6,6 @@ Things to work on
   3. Inflation
   4. Possible story to explain the power of interest over time
  
+To get started start new repository
+npm i
+npm start
