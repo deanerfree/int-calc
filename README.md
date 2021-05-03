@@ -1,4 +1,4 @@
-Simple compound interest calculator.
+Simple compound interest calculator using React and styled components
 Currently calculates the compound interest simpily
 Things to work on
   1. Interest earned based on the compound rate
