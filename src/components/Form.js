@@ -153,7 +153,7 @@ const InputForm = () => {
         <Button
           onClick={() => {
             setAmount(0)
-            setCompoundRate('')
+            setCompoundRate(1)
             setInterestRate('')
             setPrinciple('')
             setTime('')
