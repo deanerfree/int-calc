@@ -107,7 +107,7 @@ const InputForm = () => {
         <Wrapper>
           <Label>Compound Rate:</Label>
           <RadioInput
-            type="Radio"
+            type="radio"
             id="compoundRate1"
             name="compoundRate"
             onChange={(e) => setCompoundRate(e.target.value)}
@@ -115,7 +115,7 @@ const InputForm = () => {
           />
           <RadioLabel htmlFor="compound1">Annualy</RadioLabel>
           <RadioInput
-            type="Radio"
+            type="radio"
             id="compoundRate2"
             name="compoundRate"
             onChange={(e) => setCompoundRate(e.target.value)}
@@ -123,7 +123,7 @@ const InputForm = () => {
           />
           <RadioLabel htmlFor="compound2">Semi-Annual</RadioLabel>
           <Input
-            type="Radio"
+            type="radio"
             id="compoundRate3"
             name="compoundRate"
             onChange={(e) => setCompoundRate(e.target.value)}
@@ -131,7 +131,7 @@ const InputForm = () => {
           />
           <RadioLabel htmlFor="compound3">Quarterly</RadioLabel>
           <RadioInput
-            type="Radio"
+            type="radio"
             id="compoundRate4"
             name="compoundRate"
             onChange={(e) => setCompoundRate(e.target.value)}

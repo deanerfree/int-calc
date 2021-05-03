@@ -14,9 +14,9 @@ const CalculatorContextProvider = (props) => {
       principle * (1 + interestRate / compoundRate) ** (compoundRate * time)
     setAmount(calcAmount.toFixed(2))
   }
-  useEffect(() => {
-    calcCompoundInterest()
-  }, [])
+  // useEffect(() => {
+  //   calcCompoundInterest()
+  // }, [])
 
   return (
     <CalculatorContext.Provider
