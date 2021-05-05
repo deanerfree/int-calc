@@ -1,6 +1,7 @@
 import './App.css'
-import styled from 'styled-components'
+
 import Form from './components/Form'
+import Inflation from './components/Inflation'
 import CalculatorContext from './context/CalculatorContext'
 
 function App() {
@@ -8,6 +9,7 @@ function App() {
     <CalculatorContext>
       <div className="App">
         <Form />
+        <Inflation />
       </div>
     </CalculatorContext>
   )
