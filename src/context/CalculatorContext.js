@@ -1,16 +1,18 @@
-import React, { useState, createContext } from 'react'
+import { useState, useEffect, createContext } from 'react'
 import axios from 'axios'
 
 export const CalculatorContext = createContext()
 
 const CalculatorContextProvider = (props) => {
   const [amount, setAmount] = useState(0)
+  const [isOpen, setIsOpen] = useState(false)
   const [principle, setPrinciple] = useState('')
   const [interestRate, setInterestRate] = useState('')
   const [compoundRate, setCompoundRate] = useState(1)
   const [time, setTime] = useState('')
-  const [startDate, setStartDate] = useState(new Date())
-  const [endDate, setEndDate] = useState(new Date())
+  const [startDate, setStartDate] = useState(new Date(), 'YYYY-MM')
+  const [endDate, setEndDate] = useState(new Date(), 'YYYY-MM')
+  const [selected, setSelected] = useState(null)
 
   const calcCompoundInterest = () => {
     const calcAmount =
@@ -29,26 +31,39 @@ const CalculatorContextProvider = (props) => {
     e.preventDefault()
   }
   //retrieve information from statscan
+  const data = []
 
-  const res = axios
-    .get(
-      `https://www150.statcan.gc.ca/t1/wds/rest/getDataFromVectorByReferencePeriodRange?vectorIds="1","41690973"&startRefPeriod=2000-01-01&endReferencePeriod=2021-01-01`,
-    )
-    .then((res) => {
-      console.log(res.data)
-    })
+  const getData = async () => {
+    try {
+      const res = await axios.get(
+        `https://www150.statcan.gc.ca/t1/wds/rest/getDataFromVectorByReferencePeriodRange?vectorIds="41690973"&startRefPeriod=${startDate}&endReferencePeriod=${endDate}`,
+      )
+
+      data.push(res.data[0].object.vectorDataPoint)
+
+      // for (let i = 0; i < data.length; i++) {
+      //   console.log('here we go', data[i])
+      //   if (data[i] == startDate) {
+      //   }
+      // }
+    } catch (err) {
+      console.log('This is the error message:', err)
+    }
+  }
 
   return (
     //Variables and hooks to add to components
     <CalculatorContext.Provider
       value={{
-        res,
+        getData,
         amount,
         setAmount,
         calcCompoundInterest,
         principle,
         setPrinciple,
         interestRate,
+        isOpen,
+        setIsOpen,
         setInterestRate,
         compoundRate,
         setCompoundRate,
@@ -57,6 +72,8 @@ const CalculatorContextProvider = (props) => {
         setStartDate,
         setEndDate,
         submitHandler,
+        selected,
+        setSelected,
       }}
     >
       {props.children}

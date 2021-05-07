@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import styled from 'styled-components'
 import { CalculatorContext } from '../context/CalculatorContext'
 import {
@@ -6,8 +6,9 @@ import {
   Form,
   Label,
   Input,
-  RadioInput,
-  RadioLabel,
+  Dropdown,
+  DropdownItem,
+  DropdownLabel,
   Button,
   Answer,
 } from '../config/styles'
@@ -19,14 +20,24 @@ const InputForm = () => {
     principle,
     setPrinciple,
     interestRate,
+    isOpen,
+    setIsOpen,
     setInterestRate,
     calcCompoundInterest,
     setCompoundRate,
     time,
     setTime,
     submitHandler,
+    selected,
+    setSelected,
   } = useContext(CalculatorContext)
 
+  const options = [
+    { value: 1, name: 'Annual' },
+    { value: 2, name: 'Semi-Annual' },
+    { value: 4, name: 'Quarterly' },
+    { value: 12, name: 'Monthly' },
+  ]
   return (
     <Form onSubmit={submitHandler}>
       <Wrapper>
@@ -49,38 +60,27 @@ const InputForm = () => {
       </Wrapper>
       <Wrapper>
         <Label>Compound Rate:</Label>
-        <RadioInput
-          type="radio"
-          id="compoundRate1"
-          name="compoundRate"
-          onChange={(e) => setCompoundRate(e.target.value)}
-          value={1}
-        />
-        <RadioLabel htmlFor="compound1">Annual</RadioLabel>
-        <RadioInput
-          type="radio"
-          id="compoundRate2"
-          name="compoundRate"
-          onChange={(e) => setCompoundRate(e.target.value)}
-          value={2}
-        />
-        <RadioLabel htmlFor="compound2">Semi-Annual</RadioLabel>
-        <Input
-          type="radio"
-          id="compoundRate3"
-          name="compoundRate"
-          onChange={(e) => setCompoundRate(e.target.value)}
-          value={4}
-        />
-        <RadioLabel htmlFor="compound3">Quarterly</RadioLabel>
-        <RadioInput
-          type="radio"
-          id="compoundRate4"
-          name="compoundRate"
-          onChange={(e) => setCompoundRate(e.target.value)}
-          value={12}
-        />
-        <RadioLabel htmlFor="compound4">Monthly</RadioLabel>
+        <DropdownLabel
+          onClick={() => {
+            setIsOpen(!isOpen)
+            console.log(isOpen)
+          }}
+        >
+          {selected || options[0].name}
+        </DropdownLabel>
+        <Dropdown isOpen={isOpen}>
+          {options.map((option) => (
+            <DropdownItem
+              key={Math.random()}
+              onClick={(e) => {
+                setCompoundRate(option.value)
+                setSelected(option.name)
+              }}
+            >
+              {option.name}
+            </DropdownItem>
+          ))}
+        </Dropdown>
       </Wrapper>
       <Wrapper>
         <Label>Time:</Label>
@@ -91,19 +91,20 @@ const InputForm = () => {
           value={time}
         />
       </Wrapper>
-
-      <Button onClick={() => calcCompoundInterest()}>Calculate</Button>
-      <Button
-        onClick={() => {
-          setAmount(0)
-          setCompoundRate(1)
-          setInterestRate('')
-          setPrinciple('')
-          setTime('')
-        }}
-      >
-        Clear
-      </Button>
+      <Wrapper>
+        <Button onClick={() => calcCompoundInterest()}>Calculate</Button>
+        <Button
+          onClick={() => {
+            setAmount(0)
+            setCompoundRate(1)
+            setInterestRate('')
+            setPrinciple('')
+            setTime('')
+          }}
+        >
+          Clear
+        </Button>
+      </Wrapper>
       <Answer>${amount}</Answer>
     </Form>
   )

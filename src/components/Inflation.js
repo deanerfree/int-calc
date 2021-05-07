@@ -1,16 +1,7 @@
 import React, { useContext } from 'react'
 import { CalculatorContext } from '../context/CalculatorContext'
-import styled from 'styled-components'
-import {
-  Wrapper,
-  Form,
-  Label,
-  Input,
-  RadioInput,
-  RadioLabel,
-  Button,
-  Answer,
-} from '../config/styles'
+
+import { Wrapper, Form, Label, Input } from '../config/styles'
 
 const Inflation = () => {
   const { res, setStartDate, setEndDate, submitHandler } = useContext(
@@ -20,9 +11,12 @@ const Inflation = () => {
     <Wrapper>
       <Form onSubmit={submitHandler}>
         <Label>Start Date</Label>
-        <Input></Input>
+        <Input
+          type="date"
+          onChange={(e) => setStartDate(e.target.value)}
+        ></Input>
         <Label>End Date</Label>
-        <Input></Input>
+        <Input type="date" onChange={(e) => setEndDate(e.target.value)}></Input>
       </Form>
     </Wrapper>
   )
