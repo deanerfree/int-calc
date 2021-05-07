@@ -1,17 +1,8 @@
 import { useContext } from 'react'
-import styled from 'styled-components'
 import { CalculatorContext } from '../context/CalculatorContext'
-import {
-  Wrapper,
-  Form,
-  Label,
-  Input,
-  Dropdown,
-  DropdownItem,
-  DropdownLabel,
-  Button,
-  Answer,
-} from '../config/styles'
+import DropdownWrapper from './DropdownWrapper'
+
+import { Wrapper, Form, Label, Input, Button, Answer } from '../config/styles'
 
 const InputForm = () => {
   const {
@@ -21,17 +12,13 @@ const InputForm = () => {
     setPrinciple,
     interestRate,
     isOpen,
-    setIsOpen,
     setInterestRate,
     calcCompoundInterest,
     setCompoundRate,
     time,
     setTime,
     submitHandler,
-    selected,
-    setSelected,
   } = useContext(CalculatorContext)
-
   const options = [
     { value: 1, name: 'Annual' },
     { value: 2, name: 'Semi-Annual' },
@@ -60,27 +47,7 @@ const InputForm = () => {
       </Wrapper>
       <Wrapper>
         <Label>Compound Rate:</Label>
-        <DropdownLabel
-          onClick={() => {
-            setIsOpen(!isOpen)
-            console.log(isOpen)
-          }}
-        >
-          {selected || options[0].name}
-        </DropdownLabel>
-        <Dropdown isOpen={isOpen}>
-          {options.map((option) => (
-            <DropdownItem
-              key={Math.random()}
-              onClick={(e) => {
-                setCompoundRate(option.value)
-                setSelected(option.name)
-              }}
-            >
-              {option.name}
-            </DropdownItem>
-          ))}
-        </Dropdown>
+        <DropdownWrapper options={options} isOpen={isOpen} />
       </Wrapper>
       <Wrapper>
         <Label>Time:</Label>

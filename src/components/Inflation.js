@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import { CalculatorContext } from '../context/CalculatorContext'
 
 import { Wrapper, Form, Label, Input } from '../config/styles'

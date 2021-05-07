@@ -10,7 +10,7 @@ export const Button = styled.button`
   background-color: black;
   border-style: none;
   border-color: blue;
-  border-radius: 30px;
+  border-radius: 10px;
   border-width: 5px;
   font-weight: 600;
 `
@@ -26,14 +26,17 @@ export const Form = styled.form`
   padding-left: 50px;
 `
 export const Wrapper = styled.div`
+  display: flex;
+  align-items: top;
   flex-direction: row;
-  align-items: center;
-  flex-direction: row;
+  position: relative;
+  height: 7em;
 `
 
 export const Input = styled.input`
-  padding: 0.5em;
-  margin: 0.5em;
+  position: relative;
+  margin-left: 10px;
+  height: 50px;
   color: black;
   font-size: 40px;
   font-weight: 600;
@@ -45,6 +48,7 @@ export const Input = styled.input`
 `
 
 export const Label = styled.label`
+  position: relative;
   font-size: 40px;
   font-weight: 600;
 `
@@ -54,14 +58,20 @@ export const DropdownLabel = styled.label`
   flex-direction: row;
   font-size: 40px;
   font-weight: 600;
-  border: 2px solid rgba(200, 300, 100, 0.7);
-  border-radius: 30px;
+  border: 2px solid rgba(138, 137, 144, 0.89);
+  border-radius: 10px;
 `
+export const DropdownContainer = styled.div``
 
-export const Dropdown = styled.div`
+export const Dropdown = styled.ul`
   overflow: hidden;
+  position: relative;
   flex-direction: column;
-  max-height: ${({ isOpen }) => (isOpen ? '300px' : '0')};
+  transform: translateX(20%);
+  /* max-height: ${({ isOpen }) => (isOpen ? '500px' : '0')}; */
 `
 
-export const DropdownItem = styled.div``
+export const DropdownItem = styled.li`
+  list-style-type: none;
+  cursor: pointer;
+`
