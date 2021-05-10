@@ -1,8 +1,9 @@
 import { useContext } from 'react'
 import { CalculatorContext } from '../context/CalculatorContext'
-import DropdownWrapper from './DropdownWrapper'
+import DropdownWrapper from './DropdownContainer'
+import Button from './Button'
 
-import { Wrapper, Form, Label, Input, Button, Answer } from '../config/styles'
+import { Wrapper, Form, Label, Input, Answer } from '../config/styles'
 
 const InputForm = () => {
   const {
@@ -59,20 +60,21 @@ const InputForm = () => {
         />
       </Wrapper>
       <Wrapper>
-        <Button onClick={() => calcCompoundInterest()}>Calculate</Button>
+        <Button title={'Calculate'} onClick={() => calcCompoundInterest()} />
         <Button
+          title={'Clear'}
           onClick={() => {
-            setAmount(0)
+            setAmount(0.0)
             setCompoundRate(1)
             setInterestRate('')
             setPrinciple('')
             setTime('')
           }}
-        >
-          Clear
-        </Button>
+        />
       </Wrapper>
-      <Answer>${amount}</Answer>
+      <Wrapper>
+        <Answer>${amount}</Answer>
+      </Wrapper>
     </Form>
   )
 }

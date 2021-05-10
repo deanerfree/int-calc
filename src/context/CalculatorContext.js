@@ -1,18 +1,26 @@
-import { useState, useEffect, createContext } from 'react'
+import { useState, createContext, useEffect } from 'react'
 import axios from 'axios'
 
 export const CalculatorContext = createContext()
 
 const CalculatorContextProvider = (props) => {
-  const [amount, setAmount] = useState(0)
-  const [isOpen, setIsOpen] = useState(false)
-  const [principle, setPrinciple] = useState('')
+  // Calculate Future value of an investment
+  const [amount, setAmount] = useState(0.0);
+  const [compoundRate, setCompoundRate] = useState(1);
+  const [isOpen, setIsOpen] = useState(false);
   const [interestRate, setInterestRate] = useState('')
-  const [compoundRate, setCompoundRate] = useState(1)
-  const [time, setTime] = useState('')
-  const [startDate, setStartDate] = useState(new Date(), 'YYYY-MM')
-  const [endDate, setEndDate] = useState(new Date(), 'YYYY-MM')
+  const [principle, setPrinciple] = useState('')
   const [selected, setSelected] = useState(null)
+  const [time, setTime] = useState('')
+
+  //Used to calculate inflation
+  const [dollarValue, setDollarValue] = useState(0)
+  const [inflationValue, setInflationValue] = useState(0)
+  const [startCpi, setStartCpi] = useState(1)
+  const [endCpi, setEndCpi] = useState(0)
+  const [search, setSearch] = useState(
+    `https://www150.statcan.gc.ca/t1/wds/rest/getDataFromVectorByReferencePeriodRange?vectorIds="41690973"&startRefPeriod=2000-01-01&endReferencePeriod=2021-01-01`,
+  )
 
   const calcCompoundInterest = () => {
     const calcAmount =
@@ -27,35 +35,52 @@ const CalculatorContextProvider = (props) => {
       setAmount(calcAmount.toFixed(2))
     }
   }
+
   const submitHandler = (e) => {
     e.preventDefault()
   }
-  //retrieve information from statscan
-  const data = []
 
-  const getData = async () => {
-    try {
-      const res = await axios.get(
-        `https://www150.statcan.gc.ca/t1/wds/rest/getDataFromVectorByReferencePeriodRange?vectorIds="41690973"&startRefPeriod=${startDate}&endReferencePeriod=${endDate}`,
-      )
+  useEffect(() => {
+    //retrieve information from statscan
+    const getData = async () => {
+      try {
+        const res = await axios.get(search)
 
-      data.push(res.data[0].object.vectorDataPoint)
-
-      // for (let i = 0; i < data.length; i++) {
-      //   console.log('here we go', data[i])
-      //   if (data[i] == startDate) {
-      //   }
-      // }
-    } catch (err) {
-      console.log('This is the error message:', err)
+        const cpiData = res.data[0].object.vectorDataPoint
+        setStartCpi(cpiData[0].value)
+        setEndCpi(cpiData[cpiData.length - 1].value)
+      } catch (err) {
+        console.log('This is the error message:', err)
+      }
     }
-  }
+    getData()
+    console.log(`This is the start value ${startCpi}`)
+    console.log(`This is the end value ${endCpi}`)
+  }, [search])
 
+
+
+  useEffect(() => {
+    const calcInflation = () => {
+      const inflationRatio = (endCpi - startCpi) / startCpi;
+      console.log(`${inflationRatio} inflationRatio`);
+      let inflation = dollarValue * inflationRatio + dollarValue;
+      console.log(`${inflation} inflation`);
+      console.log(`${dollarValue} dollarValue`);
+      return setInflationValue(inflation);
+    }
+    calcInflation();
+  }, [search]);
+
+  console.log(`This is the inflationValue:${inflationValue}`)
   return (
     //Variables and hooks to add to components
     <CalculatorContext.Provider
       value={{
-        getData,
+        dollarValue,
+        setDollarValue,
+        search,
+        setSearch,
         amount,
         setAmount,
         calcCompoundInterest,
@@ -69,8 +94,11 @@ const CalculatorContextProvider = (props) => {
         setCompoundRate,
         time,
         setTime,
-        setStartDate,
-        setEndDate,
+        inflationValue,
+        // startDate,
+        // setStartDate,
+        // endDate,
+        // setEndDate,
         submitHandler,
         selected,
         setSelected,

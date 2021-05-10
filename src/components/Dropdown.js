@@ -3,12 +3,13 @@ import { useContext } from 'react'
 import { CalculatorContext } from '../context/CalculatorContext'
 
 const DropdownList = styled.ul`
+  position: relative;
   overflow: hidden;
   flex-direction: column;
-  /* transform: translateX(10%); */
-  /* max-height: ${({ isOpen }) => (isOpen ? '500px' : '0')}; */
+  z-index: 1;
 `
 const DropdownItem = styled.li`
+  justify-content: flex-start;
   list-style-type: none;
   cursor: pointer;
 `

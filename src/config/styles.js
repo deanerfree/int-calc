@@ -8,15 +8,21 @@ export const Button = styled.button`
   font-size: 40px;
   color: whitesmoke;
   background-color: black;
-  border-style: none;
-  border-color: blue;
   border-radius: 10px;
   border-width: 5px;
   font-weight: 600;
+  border: solid black;
+
+  &:hover {
+    background-color: whitesmoke;
+    color: black;
+    border: solid black;
+  }
 `
 export const Answer = styled.div`
   font-size: 80px;
   font-weight: 600;
+  justify-content: center;
 `
 
 export const Form = styled.form`
@@ -67,7 +73,7 @@ export const Dropdown = styled.ul`
   overflow: hidden;
   position: relative;
   flex-direction: column;
-  transform: translateX(20%);
+  /* transform: translateX(20%); */
   /* max-height: ${({ isOpen }) => (isOpen ? '500px' : '0')}; */
 `
 
