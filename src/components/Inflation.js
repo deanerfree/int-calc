@@ -2,9 +2,8 @@ import { useContext, useState } from 'react'
 import { CalculatorContext } from '../context/CalculatorContext'
 import styled from 'styled-components'
 import Button from './Button'
-
 import { Wrapper, Form, Label, Input, Answer } from '../config/styles'
-import { set } from 'mongoose'
+
 const InputDate = styled.input`
   position: relative;
   margin-left: 20px;
@@ -19,38 +18,40 @@ const InputDate = styled.input`
   max-width: 290px;
 `
 const Inflation = () => {
+  //State imported from context file
   const {
     setSearch,
-    // startDate,
-    // setStartDate,
-    // endDate,
-    // setEndDate,
     inflationValue,
-    dollarValue,
-    setDollarValue,
-    submitHandler,
+    setDollarValue, 
   } = useContext(CalculatorContext)
+
+  //Set state for items that change state
+  const[dollarInput, setDollarInput] = useState('')
   const [startDate, setStartDate] = useState('2000-01')
   const [endDate, setEndDate] = useState('2021-01')
+  //date is modified set this way in order to select by month and follow Stats Canada format
   let modStartDate = `${startDate}-01`
   let modEndDate = `${endDate}-01`
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setSearch(
+      `${modStartDate}&endReferencePeriod=${modEndDate}`,
+    );
+    setDollarValue(dollarInput);
+  }
+
   return (
     <Form
-      onSubmit={(e) => {
-        setSearch(
-          `https://www150.statcan.gc.ca/t1/wds/rest/getDataFromVectorByReferencePeriodRange?vectorIds="41690973"&startRefPeriod=${modStartDate}&endReferencePeriod=${modEndDate}`,
-        )
-
-        e.preventDefault()
-      }}
+      onSubmit={handleSubmit}
     >
       <Wrapper>
         <Label>Some Dollar Value</Label>
         <Input
-          type="number"
+          type="text"
           placeholder="0"
-          value={dollarValue}
-          onChange={(e) => setDollarValue(e.target.value)}
+          value={dollarInput}
+          onChange={(e) => setDollarInput(+e.target.value)}
         ></Input>
       </Wrapper>
       <Wrapper>

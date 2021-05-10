@@ -18,7 +18,6 @@ const InputForm = () => {
     setCompoundRate,
     time,
     setTime,
-    submitHandler,
   } = useContext(CalculatorContext)
   const options = [
     { value: 1, name: 'Annual' },
@@ -26,6 +25,9 @@ const InputForm = () => {
     { value: 4, name: 'Quarterly' },
     { value: 12, name: 'Monthly' },
   ]
+  const submitHandler = (e) => {
+    e.preventDefault()
+  }
   return (
     <Form onSubmit={submitHandler}>
       <Wrapper>

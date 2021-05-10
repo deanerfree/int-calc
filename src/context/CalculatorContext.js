@@ -19,7 +19,7 @@ const CalculatorContextProvider = (props) => {
   const [startCpi, setStartCpi] = useState(1)
   const [endCpi, setEndCpi] = useState(0)
   const [search, setSearch] = useState(
-    `https://www150.statcan.gc.ca/t1/wds/rest/getDataFromVectorByReferencePeriodRange?vectorIds="41690973"&startRefPeriod=2000-01-01&endReferencePeriod=2021-01-01`,
+    `2000-01-01&endReferencePeriod=2021-01-01`
   )
 
   const calcCompoundInterest = () => {
@@ -36,16 +36,16 @@ const CalculatorContextProvider = (props) => {
     }
   }
 
-  const submitHandler = (e) => {
-    e.preventDefault()
-  }
+  
 
+  const combined = [dollarValue || search]
   useEffect(() => {
-    //retrieve information from statscan
+    // retrieve information from statscan
     const getData = async () => {
       try {
-        const res = await axios.get(search)
-
+        console.log(search)
+        const res = await axios.get(`https://www150.statcan.gc.ca/t1/wds/rest/getDataFromVectorByReferencePeriodRange?vectorIds="41690973"&startRefPeriod=${search}`)
+  
         const cpiData = res.data[0].object.vectorDataPoint
         setStartCpi(cpiData[0].value)
         setEndCpi(cpiData[cpiData.length - 1].value)
@@ -56,28 +56,23 @@ const CalculatorContextProvider = (props) => {
     getData()
     console.log(`This is the start value ${startCpi}`)
     console.log(`This is the end value ${endCpi}`)
-  }, [search])
-
-
-
-  useEffect(() => {
     const calcInflation = () => {
       const inflationRatio = (endCpi - startCpi) / startCpi;
-      console.log(`${inflationRatio} inflationRatio`);
-      let inflation = dollarValue * inflationRatio + dollarValue;
-      console.log(`${inflation} inflation`);
-      console.log(`${dollarValue} dollarValue`);
-      return setInflationValue(inflation);
+      const inflation = dollarValue * inflationRatio + dollarValue;
+      return setInflationValue(inflation.toFixed(2));
     }
+    
     calcInflation();
-  }, [search]);
+  
+  }, [combined])
 
-  console.log(`This is the inflationValue:${inflationValue}`)
+  
+
   return (
     //Variables and hooks to add to components
     <CalculatorContext.Provider
       value={{
-        dollarValue,
+
         setDollarValue,
         search,
         setSearch,
@@ -95,11 +90,6 @@ const CalculatorContextProvider = (props) => {
         time,
         setTime,
         inflationValue,
-        // startDate,
-        // setStartDate,
-        // endDate,
-        // setEndDate,
-        submitHandler,
         selected,
         setSelected,
       }}
