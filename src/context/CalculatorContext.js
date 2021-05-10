@@ -14,7 +14,7 @@ const CalculatorContextProvider = (props) => {
   const [time, setTime] = useState('')
 
   //Used to calculate inflation
-  const [dollarValue, setDollarValue] = useState(0)
+  const [dollarValue, setDollarValue] = useState('')
   const [inflationValue, setInflationValue] = useState(0)
   const [startCpi, setStartCpi] = useState(1)
   const [endCpi, setEndCpi] = useState(0)

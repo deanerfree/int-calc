@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react'
 import { CalculatorContext } from '../context/CalculatorContext'
 import styled from 'styled-components'
-import Button from './Button'
+import Button from '../container/Button'
 import { Wrapper, Form, Label, Input, Answer } from '../config/styles'
 
 const InputDate = styled.input`

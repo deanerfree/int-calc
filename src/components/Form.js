@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import { CalculatorContext } from '../context/CalculatorContext'
-import DropdownWrapper from './DropdownContainer'
-import Button from './Button'
+import DropdownWrapper from '../container/DropdownContainer'
+import Button from '../container/Button'
 
 import { Wrapper, Form, Label, Input, Answer } from '../config/styles'
 
