@@ -5,7 +5,7 @@ export const CalculatorContext = createContext()
 
 const CalculatorContextProvider = (props) => {
   // Calculate Future value of an investment
-  const [amount, setAmount] = useState(0.0);
+  const [amount, setAmount] = useState(0);
   const [compoundRate, setCompoundRate] = useState(1);
   const [isOpen, setIsOpen] = useState(false);
   const [interestRate, setInterestRate] = useState('')
@@ -58,8 +58,8 @@ const CalculatorContextProvider = (props) => {
     console.log(`This is the end value ${endCpi}`)
     const calcInflation = () => {
       const inflationRatio = (endCpi - startCpi) / startCpi;
-      const inflation = dollarValue * inflationRatio + dollarValue;
-      return setInflationValue(inflation.toFixed(2));
+      const inflation = dollarValue * inflationRatio.toFixed(2) + dollarValue;
+      return setInflationValue(inflation);
     }
     
     calcInflation();

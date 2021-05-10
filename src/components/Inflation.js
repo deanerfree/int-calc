@@ -50,7 +50,7 @@ const Inflation = () => {
         <Input
           type="text"
           placeholder="0"
-          value={dollarInput}
+          value={+dollarInput}
           onChange={(e) => setDollarInput(+e.target.value)}
         ></Input>
       </Wrapper>
