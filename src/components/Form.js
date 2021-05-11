@@ -3,7 +3,7 @@ import { CalculatorContext } from '../context/CalculatorContext'
 import DropdownWrapper from '../container/DropdownContainer'
 import Button from '../container/Button'
 
-import { Wrapper, Form, Label, Input, Answer } from '../config/styles'
+import { Wrapper, Form, Label, Input, Answer } from '../config/GlobalStyles'
 
 const InputForm = () => {
   const {

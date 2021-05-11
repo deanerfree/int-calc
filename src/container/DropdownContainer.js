@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import { CalculatorContext } from '../context/CalculatorContext'
 import Dropdown from './Dropdown'
-import { DropdownLabel, DropdownContainer } from '../config/styles'
+import { DropdownLabel, DropdownContainer } from '../config/Dropdown.style'
 
 const DropdownWrapper = ({ options }) => {
   const { isOpen, setIsOpen, selected } = useContext(CalculatorContext)

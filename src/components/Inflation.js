@@ -2,7 +2,7 @@ import { useContext, useState } from 'react'
 import { CalculatorContext } from '../context/CalculatorContext'
 import styled from 'styled-components'
 import Button from '../container/Button'
-import { Wrapper, Form, Label, Input, Answer } from '../config/styles'
+import { Wrapper, Form, Label, Input, Answer } from '../config/GlobalStyles'
 
 const InputDate = styled.input`
   position: relative;

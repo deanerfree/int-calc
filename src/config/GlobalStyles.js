@@ -58,26 +58,4 @@ export const Label = styled.label`
   font-size: 40px;
   font-weight: 600;
 `
-export const DropdownLabel = styled.label`
-  margin-left: 10px;
-  padding: 10px;
-  flex-direction: row;
-  font-size: 40px;
-  font-weight: 600;
-  border: 2px solid rgba(138, 137, 144, 0.89);
-  border-radius: 10px;
-`
-export const DropdownContainer = styled.div``
 
-export const Dropdown = styled.ul`
-  overflow: hidden;
-  position: relative;
-  flex-direction: column;
-  /* transform: translateX(20%); */
-  /* max-height: ${({ isOpen }) => (isOpen ? '500px' : '0')}; */
-`
-
-export const DropdownItem = styled.li`
-  list-style-type: none;
-  cursor: pointer;
-`

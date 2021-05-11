@@ -1,18 +1,8 @@
-import styled from 'styled-components'
 import { useContext } from 'react'
 import { CalculatorContext } from '../context/CalculatorContext'
+import {DropdownList, DropdownItem} from '../config/Dropdown.style'
 
-const DropdownList = styled.ul`
-  position: relative;
-  overflow: hidden;
-  flex-direction: column;
-  z-index: 1;
-`
-const DropdownItem = styled.li`
-  justify-content: flex-start;
-  list-style-type: none;
-  cursor: pointer;
-`
+
 const Dropdown = ({ options }) => {
   const { setCompoundRate, setSelected, setIsOpen } = useContext(
     CalculatorContext,
