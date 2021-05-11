@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useContext } from 'react'
 import { CalculatorContext } from '../context/CalculatorContext'
 import DropdownWrapper from '../container/DropdownContainer'
 import Button from '../container/Button'
@@ -20,7 +20,7 @@ const IntrestCalc = () => {
     time,
     setTime,
   } = useContext(CalculatorContext)
-  
+
   
   const options = [
     { value: 1, name: 'Annual' },
@@ -38,7 +38,7 @@ const IntrestCalc = () => {
     e.preventDefault()
   }
   return (
-    <Form onSubmit={submitHandler}>
+    <Form onSubmit={submitHandler} >
       <Wrapper>
         <Label>Principle Value:</Label>
         <Input
