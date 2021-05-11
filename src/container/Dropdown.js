@@ -1,9 +1,9 @@
-import { useContext, useState } from 'react'
+import { useContext } from 'react'
 import { CalculatorContext } from '../context/CalculatorContext'
 import {DropdownList, DropdownItem} from '../config/Dropdown.style'
 
 
-const Dropdown = ({ options, isOpen }) => {
+const Dropdown = ({ options }) => {
   const { setCompoundRate, setSelected } = useContext(
     CalculatorContext,
   )
@@ -16,7 +16,7 @@ const Dropdown = ({ options, isOpen }) => {
           onClick={() => {
             setCompoundRate(option.value)
             setSelected(option.name)
-           
+            
           }}
         >
           {option.name}
