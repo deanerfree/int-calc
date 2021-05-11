@@ -29,10 +29,6 @@ const IntrestCalc = () => {
     { value: 12, name: 'Monthly' },
   ]
 
-  const openDropBox = () => {
-    setIsOpen(!isOpen);
-    console.log(isOpen)
-  }
 
   const submitHandler = (e) => {
     e.preventDefault()
@@ -59,7 +55,7 @@ const IntrestCalc = () => {
       </Wrapper>
       <Wrapper>
         <Label>Compound Rate:</Label>
-        <DropdownContainer options={options} />
+        <DropdownContainer options={options} selectedValue={selectedValue} />
       </Wrapper>
       <Wrapper>
         <Label>Time:</Label>

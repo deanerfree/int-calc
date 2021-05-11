@@ -1,12 +1,11 @@
-import { useContext, useState, useEffect, useRef } from 'react'
-import { CalculatorContext } from '../context/CalculatorContext'
-import Dropdown from './Dropdown'
-import { DropdownLabel, DropdownWrapper } from '../config/Dropdown.style'
+import { useState, useEffect, useRef } from 'react'
+
+import { DropdownLabel, DropdownWrapper, DropdownList, DropdownItem } from '../config/Dropdown.style'
 
 const DropdownContainer = ({ options }) => {
   const [isOpen, setIsOpen] = useState(false)
-  
-  const { selected } = useContext(CalculatorContext)
+  const [selected, setSelected] = useState(null)
+
   const ref = useRef()
   //Closes the dropbox after item is selected
   useEffect(()=>{
@@ -22,7 +21,18 @@ const DropdownContainer = ({ options }) => {
       <DropdownLabel onClick={()=>setIsOpen(!isOpen)}>
         {selected || options[0].name}
       </DropdownLabel>
-      {isOpen && <Dropdown options={options}  />}
+      {isOpen && <DropdownList>
+      {options.map((option) => (
+        <DropdownItem
+          key={Math.random()}
+          onClick={() => {
+            setSelected(option.name)
+          }}
+        >
+          {option.name}
+        </DropdownItem>
+      ))}
+    </DropdownList>}
     </DropdownWrapper>
   )
 }
