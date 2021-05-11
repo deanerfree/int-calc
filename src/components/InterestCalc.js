@@ -4,6 +4,7 @@ import DropdownWrapper from '../container/DropdownContainer'
 import Button from '../container/Button'
 
 import { Wrapper, Form, Label, Input, Answer } from '../config/GlobalStyles'
+import { DropdownContainer } from '../config/Dropdown.style';
 
 const IntrestCalc = () => {
   const {
@@ -19,13 +20,20 @@ const IntrestCalc = () => {
     time,
     setTime,
   } = useContext(CalculatorContext)
-  const[isOpen, setIsOpen] = useState(false)
+  
+  
   const options = [
     { value: 1, name: 'Annual' },
     { value: 2, name: 'Semi-Annual' },
     { value: 4, name: 'Quarterly' },
     { value: 12, name: 'Monthly' },
   ]
+
+  const openDropBox = () => {
+    setIsOpen(!isOpen);
+    console.log(isOpen)
+  }
+
   const submitHandler = (e) => {
     e.preventDefault()
   }
@@ -51,7 +59,7 @@ const IntrestCalc = () => {
       </Wrapper>
       <Wrapper>
         <Label>Compound Rate:</Label>
-        <DropdownWrapper options={options} isOpen={isOpen} onClick={() => {setIsOpen(!isOpen)}}/>
+        <DropdownContainer options={options} />
       </Wrapper>
       <Wrapper>
         <Label>Time:</Label>

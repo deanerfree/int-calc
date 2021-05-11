@@ -20,7 +20,7 @@ export const DropdownItem = styled.li`
   border: 2px solid rgba(138, 137, 144, 0.89);
   border-radius: 10px;
 `
-export const DropdownContainer = styled.div``
+export const DropdownWrapper = styled.div``
 
 export const Dropdown = styled.ul`
   overflow: hidden;

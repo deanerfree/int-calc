@@ -1,23 +1,24 @@
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { CalculatorContext } from '../context/CalculatorContext'
 import Dropdown from './Dropdown'
-import { DropdownLabel, DropdownContainer } from '../config/Dropdown.style'
+import { DropdownLabel, DropdownWrapper } from '../config/Dropdown.style'
 
-const DropdownWrapper = ({ options }) => {
-  const { isOpen, setIsOpen, selected } = useContext(CalculatorContext)
+const DropdownContainer = ({ options }) => {
+  const [isOpen, setIsOpen] = useState(false)
+
+  const { selected } = useContext(CalculatorContext)
+  const openDropBox = () => {
+    setIsOpen(!isOpen)
+  }
 
   return (
-    <DropdownContainer>
-      <DropdownLabel
-        onClick={() => {
-          setIsOpen(!isOpen)
-        }}
-      >
+    <DropdownWrapper>
+      <DropdownLabel onClick={openDropBox}>
         {selected || options[0].name}
       </DropdownLabel>
-      {isOpen && <Dropdown options={options} />}
-    </DropdownContainer>
+      {isOpen && <Dropdown options={options} isOpen={isOpen} />}
+    </DropdownWrapper>
   )
 }
 
-export default DropdownWrapper
+export default DropdownContainer
