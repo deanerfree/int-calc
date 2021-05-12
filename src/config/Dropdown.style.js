@@ -11,7 +11,7 @@ export const DropdownItem = styled.li`
   list-style-type: none;
   cursor: pointer;
   `
-  export const DropdownLabel = styled.label`
+export const DropdownLabel = styled.div`
   margin-left: 10px;
   padding: 10px;
   flex-direction: row;

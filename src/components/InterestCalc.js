@@ -1,10 +1,9 @@
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { CalculatorContext } from '../context/CalculatorContext'
-import DropdownWrapper from '../container/DropdownContainer'
 import Button from '../container/Button'
-
+import DropdownContainer from '../container/DropdownContainer'
 import { Wrapper, Form, Label, Input, Answer } from '../config/GlobalStyles'
-import { DropdownContainer } from '../config/Dropdown.style';
+import { DropdownWrapper } from '../config/Dropdown.style';
 
 const IntrestCalc = () => {
   const {
@@ -13,7 +12,6 @@ const IntrestCalc = () => {
     principle,
     setPrinciple,
     interestRate,
-    // isOpen,
     setInterestRate,
     calcCompoundInterest,
     setCompoundRate,
@@ -21,14 +19,17 @@ const IntrestCalc = () => {
     setTime,
   } = useContext(CalculatorContext)
 
-  
   const options = [
     { value: 1, name: 'Annual' },
     { value: 2, name: 'Semi-Annual' },
     { value: 4, name: 'Quarterly' },
     { value: 12, name: 'Monthly' },
   ]
-
+  const handleSelect=(value) =>{
+    
+    setCompoundRate(value)
+    console.log('What is on Parent', value, typeof(value))
+  }
 
   const submitHandler = (e) => {
     e.preventDefault()
@@ -55,7 +56,7 @@ const IntrestCalc = () => {
       </Wrapper>
       <Wrapper>
         <Label>Compound Rate:</Label>
-        <DropdownContainer options={options} selectedValue={selectedValue} />
+        <DropdownContainer options={options} parentOnChange={handleSelect} />
       </Wrapper>
       <Wrapper>
         <Label>Time:</Label>

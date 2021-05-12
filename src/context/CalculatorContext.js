@@ -43,7 +43,7 @@ const CalculatorContextProvider = (props) => {
     // retrieve information from statscan
     const getData = async () => {
       try {
-        console.log(search)
+        // console.log(search)
         const res = await axios.get(`https://www150.statcan.gc.ca/t1/wds/rest/getDataFromVectorByReferencePeriodRange?vectorIds="41690973"&startRefPeriod=${search}`)
   
         const cpiData = res.data[0].object.vectorDataPoint
@@ -54,8 +54,8 @@ const CalculatorContextProvider = (props) => {
       }
     }
     getData()
-    console.log(`This is the start value ${startCpi}`)
-    console.log(`This is the end value ${endCpi}`)
+    // console.log(`This is the start value ${startCpi}`)
+    // console.log(`This is the end value ${endCpi}`)
     const calcInflation = () => {
       const inflationRatio = (endCpi - startCpi) / startCpi;
       const inflation = dollarValue * inflationRatio.toFixed(2) + dollarValue;
