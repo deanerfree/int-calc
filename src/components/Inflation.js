@@ -3,6 +3,7 @@ import { CalculatorContext } from '../context/CalculatorContext'
 import styled from 'styled-components'
 import Button from '../container/Button'
 import { Wrapper, Form, Label, Input, Answer } from '../config/GlobalStyles'
+import DropdownContainer from '../container/DropdownContainer'
 
 const InputDate = styled.input`
   position: relative;
@@ -19,32 +20,40 @@ const InputDate = styled.input`
 `
 const Inflation = () => {
   //State imported from context file
-  const {
-    setSearch,
-    inflationValue,
-    setDollarValue, 
-  } = useContext(CalculatorContext)
+  const { setSearch, inflationValue, setDollarValue } = useContext(
+    CalculatorContext,
+  )
 
+  const options = [
+    { name: 'All Items', value: 'v41690973' },
+    { name: 'Food', value: 'v41690974' },
+    { name: 'Gasoline', value: 'v41691136' },
+    { name: 'Health and personal care', value: 'v41691153' },
+    { name: 'Alcohol, Tobacco, Cannabis', value: 'v41691206' },
+    { name: 'Energy', value: 'v41691239' },
+  ]
   //Set state for items that change state
-  const[dollarInput, setDollarInput] = useState('')
+  const [dollarInput, setDollarInput] = useState('')
   const [startDate, setStartDate] = useState('2000-01')
   const [endDate, setEndDate] = useState('2021-01')
+  const [value, setValue] = useState(null)
   //date is modified set this way in order to select by month and follow Stats Canada format
   let modStartDate = `${startDate}-01`
   let modEndDate = `${endDate}-01`
 
+  const handleSelect = (value) => {
+    setValue(value)
+    console.log('What is on Parent', value, typeof value)
+  }
+
   const handleSubmit = (event) => {
-    event.preventDefault();
-    setSearch(
-      `${modStartDate}&endReferencePeriod=${modEndDate}`,
-    );
-    setDollarValue(dollarInput);
+    event.preventDefault()
+    setSearch(`${modStartDate}&endReferencePeriod=${modEndDate}`)
+    setDollarValue(dollarInput)
   }
 
   return (
-    <Form
-      onSubmit={handleSubmit}
-    >
+    <Form onSubmit={handleSubmit}>
       <Wrapper>
         <Label>Some Dollar Value</Label>
         <Input
@@ -73,7 +82,9 @@ const Inflation = () => {
       <Wrapper>
         <Button title="Calc Inflation" type="submit" />
       </Wrapper>
-
+      <Wrapper>
+        <DropdownContainer options={options} parentOnChange={handleSelect} />
+      </Wrapper>
       <Wrapper>
         <Answer>${inflationValue}</Answer>
       </Wrapper>
