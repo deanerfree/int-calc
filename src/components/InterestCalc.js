@@ -1,9 +1,9 @@
-import { useContext, useState } from 'react'
+import { useContext } from 'react'
 import { CalculatorContext } from '../context/CalculatorContext'
 import Button from '../container/Button'
 import DropdownContainer from '../container/DropdownContainer'
 import { Wrapper, Form, Label, Input, Answer } from '../config/GlobalStyles'
-import { DropdownWrapper } from '../config/Dropdown.style';
+
 
 const IntrestCalc = () => {
   const {
