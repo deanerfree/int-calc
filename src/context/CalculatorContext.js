@@ -42,7 +42,6 @@ const CalculatorContextProvider = (props) => {
     // retrieve information from statscan
     const getData = async () => {
       try {
-        // console.log(search)
         const res = await axios.get(
           `https://www150.statcan.gc.ca/t1/wds/rest/getDataFromVectorByReferencePeriodRange?vectorIds="${inflationFocus}"&startRefPeriod=${search}`,
         )

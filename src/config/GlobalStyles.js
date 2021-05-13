@@ -12,11 +12,13 @@ export const Button = styled.button`
   border-width: 5px;
   font-weight: 600;
   border: solid black;
+  cursor: pointer;
 
   &:hover {
     background-color: whitesmoke;
     color: black;
     border: solid black;
+    cursor: pointer;
   }
 `
 export const Answer = styled.div`
@@ -58,4 +60,3 @@ export const Label = styled.label`
   font-size: 40px;
   font-weight: 600;
 `
-

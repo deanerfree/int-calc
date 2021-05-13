@@ -4,7 +4,6 @@ import Button from '../container/Button'
 import DropdownContainer from '../container/DropdownContainer'
 import { Wrapper, Form, Label, Input, Answer } from '../config/GlobalStyles'
 
-
 const IntrestCalc = () => {
   const {
     amount,
@@ -25,17 +24,15 @@ const IntrestCalc = () => {
     { value: 4, name: 'Quarterly' },
     { value: 12, name: 'Monthly' },
   ]
-  const handleSelect=(value) =>{
-    
+  const handleSelect = (value) => {
     setCompoundRate(value)
-    console.log('What is on Parent', value, typeof(value))
   }
 
   const submitHandler = (e) => {
     e.preventDefault()
   }
   return (
-    <Form onSubmit={submitHandler} >
+    <Form onSubmit={submitHandler}>
       <Wrapper>
         <Label>Principle Value:</Label>
         <Input
