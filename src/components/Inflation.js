@@ -20,17 +20,20 @@ const InputDate = styled.input`
 `
 const Inflation = () => {
   //State imported from context file
-  const { setSearch, inflationValue, setDollarValue } = useContext(
-    CalculatorContext,
-  )
+  const {
+    setSearch,
+    inflationValue,
+    setDollarValue,
+    setInflationFocus,
+  } = useContext(CalculatorContext)
 
   const options = [
-    { name: 'All Items', value: 'v41690973' },
-    { name: 'Food', value: 'v41690974' },
-    { name: 'Gasoline', value: 'v41691136' },
-    { name: 'Health and personal care', value: 'v41691153' },
-    { name: 'Alcohol, Tobacco, Cannabis', value: 'v41691206' },
-    { name: 'Energy', value: 'v41691239' },
+    { name: 'All Items', value: '41690973' },
+    { name: 'Food', value: '41690974' },
+    { name: 'Gasoline', value: '41691136' },
+    { name: 'Health and personal care', value: '41691153' },
+    { name: 'Alcohol, Tobacco, Cannabis', value: '41691206' },
+    { name: 'Energy', value: '41691239' },
   ]
   //Set state for items that change state
   const [dollarInput, setDollarInput] = useState('')
@@ -50,6 +53,7 @@ const Inflation = () => {
     event.preventDefault()
     setSearch(`${modStartDate}&endReferencePeriod=${modEndDate}`)
     setDollarValue(dollarInput)
+    setInflationFocus(value)
   }
 
   return (
@@ -62,6 +66,10 @@ const Inflation = () => {
           value={+dollarInput}
           onChange={(e) => setDollarInput(+e.target.value)}
         ></Input>
+      </Wrapper>
+      <Wrapper>
+        <Label>Focus:</Label>
+        <DropdownContainer options={options} parentOnChange={handleSelect} />
       </Wrapper>
       <Wrapper>
         <Label>Start Date:</Label>
@@ -81,9 +89,6 @@ const Inflation = () => {
       </Wrapper>
       <Wrapper>
         <Button title="Calc Inflation" type="submit" />
-      </Wrapper>
-      <Wrapper>
-        <DropdownContainer options={options} parentOnChange={handleSelect} />
       </Wrapper>
       <Wrapper>
         <Answer>${inflationValue}</Answer>

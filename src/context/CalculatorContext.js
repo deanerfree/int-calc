@@ -5,9 +5,9 @@ export const CalculatorContext = createContext()
 
 const CalculatorContextProvider = (props) => {
   // Calculate Future value of an investment
-  const [amount, setAmount] = useState(0);
-  const [compoundRate, setCompoundRate] = useState(1);
-  const [isOpen, setIsOpen] = useState(false);
+  const [amount, setAmount] = useState(0)
+  const [compoundRate, setCompoundRate] = useState(1)
+  const [isOpen, setIsOpen] = useState(false)
   const [interestRate, setInterestRate] = useState('')
   const [principle, setPrinciple] = useState('')
   const [selected, setSelected] = useState(null)
@@ -19,8 +19,9 @@ const CalculatorContextProvider = (props) => {
   const [startCpi, setStartCpi] = useState(1)
   const [endCpi, setEndCpi] = useState(0)
   const [search, setSearch] = useState(
-    `2000-01-01&endReferencePeriod=2021-01-01`
+    `2000-01-01&endReferencePeriod=2021-01-01`,
   )
+  const [inflationFocus, setInflationFocus] = useState('41690973')
 
   const calcCompoundInterest = () => {
     const calcAmount =
@@ -36,16 +37,16 @@ const CalculatorContextProvider = (props) => {
     }
   }
 
-  
-
   const combined = [dollarValue || search]
   useEffect(() => {
     // retrieve information from statscan
     const getData = async () => {
       try {
         // console.log(search)
-        const res = await axios.get(`https://www150.statcan.gc.ca/t1/wds/rest/getDataFromVectorByReferencePeriodRange?vectorIds="41690973"&startRefPeriod=${search}`)
-  
+        const res = await axios.get(
+          `https://www150.statcan.gc.ca/t1/wds/rest/getDataFromVectorByReferencePeriodRange?vectorIds="${inflationFocus}"&startRefPeriod=${search}`,
+        )
+
         const cpiData = res.data[0].object.vectorDataPoint
         setStartCpi(cpiData[0].value)
         setEndCpi(cpiData[cpiData.length - 1].value)
@@ -57,22 +58,19 @@ const CalculatorContextProvider = (props) => {
     // console.log(`This is the start value ${startCpi}`)
     // console.log(`This is the end value ${endCpi}`)
     const calcInflation = () => {
-      const inflationRatio = (endCpi - startCpi) / startCpi;
-      const inflation = dollarValue * inflationRatio.toFixed(2) + dollarValue;
-      return setInflationValue(inflation);
+      const inflationRatio = (endCpi - startCpi) / startCpi
+      const inflation = dollarValue * inflationRatio.toFixed(2) + dollarValue
+      return setInflationValue(inflation)
     }
-    
-    calcInflation();
-  
-  }, [combined])
 
-  
+    calcInflation()
+  }, [combined])
 
   return (
     //Variables and hooks to add to components
     <CalculatorContext.Provider
       value={{
-
+        setInflationFocus,
         setDollarValue,
         search,
         setSearch,
