@@ -5,7 +5,10 @@ export const DropdownList = styled.ul`
   margin: 0px;
   margin-left: 10px;
   padding: 0px;
-  border: 1px;
+  border-top: 0.125px;
+  border-bottom: 1px;
+  border-left: 1px;
+  border-right: 1px;
   border-style: solid;
   border-color: rgba(138, 137, 144, 0.89);
   border-radius: 10px;
@@ -39,12 +42,8 @@ export const DropdownLabel = styled.div`
   cursor: pointer;
   width: 200px;
 `
-export const DropdownWrapper = styled.div``
-
-export const Dropdown = styled.ul`
-  overflow: hidden;
-  position: relative;
-  flex-direction: column;
-  /* transform: translateX(20%); */
-  /* max-height: ${({ isOpen }) => (isOpen ? '500px' : '0')}; */
+export const DropdownWrapper = styled.div`
+  margin-left: 20px;
+  margin-top: -10px;
+  justify-content: center;
 `

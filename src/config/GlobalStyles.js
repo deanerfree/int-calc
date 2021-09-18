@@ -1,26 +1,5 @@
 import styled from 'styled-components'
 
-export const Button = styled.button`
-  justify-content: center;
-  width: 300px;
-  padding: 30px;
-  margin: 5px;
-  font-size: 40px;
-  color: whitesmoke;
-  background-color: black;
-  border-radius: 10px;
-  border-width: 5px;
-  font-weight: 600;
-  border: solid black;
-  cursor: pointer;
-
-  &:hover {
-    background-color: whitesmoke;
-    color: black;
-    border: solid black;
-    cursor: pointer;
-  }
-`
 export const Answer = styled.div`
   font-size: 80px;
   font-weight: 600;
@@ -34,8 +13,8 @@ export const Form = styled.form`
   padding-left: 50px;
 `
 export const Wrapper = styled.div`
+  margin: 5px;
   display: flex;
-  align-items: top;
   flex-direction: row;
   position: relative;
   height: 7em;

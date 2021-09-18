@@ -88,7 +88,7 @@ const Inflation = () => {
         ></InputDate>
       </Wrapper>
       <Wrapper>
-        <Button title="Calc Inflation" type="submit" />
+        <Button title="Calculate Inflation" type="submit" />
       </Wrapper>
       <Wrapper>
         <Answer>${inflationValue}</Answer>
