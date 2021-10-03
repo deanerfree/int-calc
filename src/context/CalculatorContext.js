@@ -29,13 +29,27 @@ const CalculatorContextProvider = (props) => {
 	const [inflationFocus, setInflationFocus] = useState("41690973")
 
 	// chart data
+	const getData = async () => {
+		try {
+			const res = await axios.get(
+				`https://www150.statcan.gc.ca/t1/wds/rest/getDataFromVectorByReferencePeriodRange?vectorIds="${inflationFocus}"&startRefPeriod=${search}`
+			)
+			setCpiData(res.data[0].object.vectorDataPoint)
+			const cpiData = res.data[0].object.vectorDataPoint
+			// console.log(typeof cpiData)
+			// dataList.push(cpiData)
+			setStartCpi(cpiData[0].value)
+			setEndCpi(cpiData[cpiData.length - 1].value)
+		} catch (err) {
+			console.error("This is the error message:", err)
+		}
+	}
 
-	// let dataList = []
 	let cleanedDataList = []
 	let dataPoint = { date: null, value: null }
 
 	const selectData = (data) => {
-		data.forEach((point, index) => {
+		data.forEach((point) => {
 			dataPoint.date = point.refPer
 			dataPoint.value = point.value
 			cleanedDataList.push(dataPoint)
@@ -53,7 +67,14 @@ const CalculatorContextProvider = (props) => {
 		setAmount(calcAmount.toFixed(2))
 	}
 
+	const calcInflation = (start, end) => {
+		const inflationRatio = calculateInflationRatio(start, end)
+		const inflation = dollarValue * inflationRatio.toFixed(2) + dollarValue
+		return setInflationValue(inflation)
+	}
+
 	//calculate compound interest rate with periodic deposits
+	// eslint-disable-next-line
 	const calcCompoundInterestPeriodicDeposits = () => {
 		for (let i = time; i >= 0; i--) {
 			const calcAmount =
@@ -62,43 +83,24 @@ const CalculatorContextProvider = (props) => {
 		}
 	}
 
-	const combined = [search || dollarValue]
+	const combined = [dollarValue]
+
 	useEffect(() => {
 		// retrieve information from statscan
-		const getData = async () => {
-			try {
-				const res = await axios.get(
-					`https://www150.statcan.gc.ca/t1/wds/rest/getDataFromVectorByReferencePeriodRange?vectorIds="${inflationFocus}"&startRefPeriod=${search}`
-				)
-				setCpiData(res.data[0].object.vectorDataPoint)
-				// const cpiData = res.data[0].object.vectorDataPoint
-				// console.log(typeof cpiData)
-				// dataList.push(cpiData)
-			} catch (err) {
-				console.error("This is the error message:", err)
-			}
-		}
+
 		getData()
+		// eslint-disable-next-line
 	}, [search])
 
 	useEffect(() => {
 		try {
-			// console.log(`This is the start value ${cpiData[0].value}`)
-			// console.log(`This is the end value ${endCpi}`)
+			// Calculate Inflation when value changes
 
-			setStartCpi(cpiData[0].value)
-			setEndCpi(cpiData[cpiData.length - 1].value)
-
-			const calcInflation = () => {
-				const inflationRatio = (endCpi - startCpi) / startCpi
-				const inflation = dollarValue * inflationRatio.toFixed(2) + dollarValue
-				return setInflationValue(inflation)
-			}
-
-			calcInflation()
+			calcInflation(startCpi, endCpi)
 		} catch (err) {
 			console.error("This is the error message:", err)
 		}
+		// eslint-disable-next-line
 	}, [combined])
 
 	return (
