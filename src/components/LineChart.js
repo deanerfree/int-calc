@@ -3,8 +3,10 @@ import { useContext } from "react"
 import { CalculatorContext } from "../context/CalculatorContext"
 
 const LineChart = () => {
-	const { dataList } = useContext(CalculatorContext)
-	console.log("The data:", dataList)
+	const { cleanedDataList, cpiData, selectData } = useContext(CalculatorContext)
+
+	selectData(cpiData)
+
 	return (
 		<div>
 			<h2>chart</h2>

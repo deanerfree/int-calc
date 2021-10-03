@@ -17,7 +17,7 @@ const CalculatorContextProvider = (props) => {
 	const [time, setTime] = useState("")
 
 	//Used to calculate inflation
-	const [data, setData] = useState()
+	const [cpiData, setCpiData] = useState([])
 	const [dollarValue, setDollarValue] = useState("")
 	const [inflationValue, setInflationValue] = useState(0)
 	const [startCpi, setStartCpi] = useState(1)
@@ -28,8 +28,25 @@ const CalculatorContextProvider = (props) => {
 
 	const [inflationFocus, setInflationFocus] = useState("41690973")
 
+	// chart data
+
+	// let dataList = []
+	let cleanedDataList = []
 	let dataPoint = { date: null, value: null }
-	let dataList = []
+
+	const selectData = (data) => {
+		data.forEach((point, index) => {
+			dataPoint.date = point.refPer
+			dataPoint.value = point.value
+			cleanedDataList.push(dataPoint)
+		})
+	}
+
+	const calculateInflationRatio = (start, end) => {
+		let value = (end - start) / start
+		return value
+	}
+
 	const calcCompoundInterest = () => {
 		const calcAmount =
 			principle * (1 + interestRate / compoundRate) ** (compoundRate * time)
@@ -45,7 +62,7 @@ const CalculatorContextProvider = (props) => {
 		}
 	}
 
-	const combined = [dollarValue || search]
+	const combined = [search || dollarValue]
 	useEffect(() => {
 		// retrieve information from statscan
 		const getData = async () => {
@@ -53,26 +70,35 @@ const CalculatorContextProvider = (props) => {
 				const res = await axios.get(
 					`https://www150.statcan.gc.ca/t1/wds/rest/getDataFromVectorByReferencePeriodRange?vectorIds="${inflationFocus}"&startRefPeriod=${search}`
 				)
-
-				const cpiData = await res.data[0].object.vectorDataPoint
-				dataList.push(cpiData)
-
-				setStartCpi(cpiData[0].value)
-				setEndCpi(cpiData[cpiData.length - 1].value)
+				setCpiData(res.data[0].object.vectorDataPoint)
+				// const cpiData = res.data[0].object.vectorDataPoint
+				// console.log(typeof cpiData)
+				// dataList.push(cpiData)
 			} catch (err) {
 				console.error("This is the error message:", err)
 			}
 		}
 		getData()
-		// console.log(`This is the start value ${startCpi}`)
-		// console.log(`This is the end value ${endCpi}`)
-		const calcInflation = () => {
-			const inflationRatio = (endCpi - startCpi) / startCpi
-			const inflation = dollarValue * inflationRatio.toFixed(2) + dollarValue
-			return setInflationValue(inflation)
-		}
+	}, [search])
 
-		calcInflation()
+	useEffect(() => {
+		try {
+			// console.log(`This is the start value ${cpiData[0].value}`)
+			// console.log(`This is the end value ${endCpi}`)
+
+			setStartCpi(cpiData[0].value)
+			setEndCpi(cpiData[cpiData.length - 1].value)
+
+			const calcInflation = () => {
+				const inflationRatio = (endCpi - startCpi) / startCpi
+				const inflation = dollarValue * inflationRatio.toFixed(2) + dollarValue
+				return setInflationValue(inflation)
+			}
+
+			calcInflation()
+		} catch (err) {
+			console.error("This is the error message:", err)
+		}
 	}, [combined])
 
 	return (
@@ -82,7 +108,7 @@ const CalculatorContextProvider = (props) => {
 				amount,
 				setAmount,
 				compoundRate,
-				dataList,
+				cpiData,
 				setCompoundRate,
 				calcCompoundInterest,
 				setInflationFocus,
@@ -100,6 +126,9 @@ const CalculatorContextProvider = (props) => {
 				inflationValue,
 				selected,
 				setSelected,
+				calculateInflationRatio,
+				selectData,
+				cleanedDataList,
 			}}>
 			{props.children}
 		</CalculatorContext.Provider>
